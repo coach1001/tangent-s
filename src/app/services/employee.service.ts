@@ -1,9 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AuthenticationService } from './authentication.service';
-import { Observable } from 'rxjs/Observable';
-import { IEmployee } from './interfaces';
-
 
 @Injectable()
 export class EmployeeService {
@@ -16,5 +13,9 @@ export class EmployeeService {
 
   getAllReviews() {
     return this.httpClient.get(`http://staging.tangent.tngnt.co/api/review`);
+  }
+
+  getAllEmployees() {
+    return this.httpClient.get(`http://staging.tangent.tngnt.co/api/employee/`);
   }
 }

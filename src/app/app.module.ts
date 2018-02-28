@@ -3,6 +3,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AuthenticatedGuardService } from './route-guards/authenticated-guard.service';
@@ -19,6 +20,7 @@ import { AuthenticationService } from './services/authentication.service';
 import { EmployeeService } from './services/employee.service';
 import { AutenticationInterceptorService } from './services/authentication-interceptor.service';
 import { YesNoPipe } from './services/yes-no.pipe';
+import { DataTableComponent } from './components/data-table/data-table.component';
 
 @NgModule({
   declarations: [
@@ -29,18 +31,20 @@ import { YesNoPipe } from './services/yes-no.pipe';
     EmployeesPageComponent,
     StatisticsPageComponent,
     EmployeeViewPageComponent,
-    YesNoPipe
+    YesNoPipe,
+    DataTableComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    AngularFontAwesomeModule
+    AngularFontAwesomeModule,
+    NgxDatatableModule
   ],
   providers: [
     {
-      provide: HTTP_INTERCEPTORS, useClass: AutenticationInterceptorService, multi: true 
+      provide: HTTP_INTERCEPTORS, useClass: AutenticationInterceptorService, multi: true
     },
     AuthenticationService,
     EmployeeService,
