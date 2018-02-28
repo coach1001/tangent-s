@@ -1,5 +1,5 @@
 
-<div class="row" *ngIf="employee?.user">
+<div class="row" *ngIf="employee">
   <div class="col col mt-4">
     <div class="card rounded-0">
       <div class="card-header bg-info text-white rounded-0">
@@ -14,11 +14,22 @@
       </ul>    
     </div>
   </div>
+  <div class="col mt-4" *ngIf="employee">
+      <div class="card rounded-0">
+        <div class="card-header bg-info text-white rounded-0">
+          Position
+        </div>        
+        <ul class="list-group list-group-flush border-0">
+          <li class="list-group-item border-0">Description: {{employee.position.name}}  </li>
+          <li class="list-group-item border-0">Level: {{employee.position.level}}</li>
+        </ul>                      
+      </div>    
+    </div>  
   <div class="col mt-4" *ngIf="employeeReviews">
     <div class="card rounded-0">
       <div class="card-header bg-info text-white rounded-0">
           <fa name="edit" size="lg"></fa>Reviews
-      </div>
+        </div>
       <div class="card-body">
       </div>
     </div>    
