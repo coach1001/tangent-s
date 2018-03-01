@@ -5,5 +5,10 @@
     text-align: left;
 }
 .cell-text {
-    font-size: 0.8rem;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+.set-cursor-pointer {
+    cursor: pointer;
 }

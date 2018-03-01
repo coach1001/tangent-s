@@ -1,12 +1,24 @@
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr class="bg-primary text-white ">
-      <th class="header-text" *ngFor="let column of columns">{{column.name}}</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let row of rows">
-        <td *ngFor="let column of columns" class="cell-text">{{getValue(row, column.prop)}}</td>
-    </tr>
-  </tbody>
-</table>
+<div class="dropdown mt-2 mb-2" [ngClass]="{'show':dropdown}">
+  <button (click)="toggleDropdown()" class="btn dropdown-toggle rounded-0" type="button" id="dropdownMenuButton" data-toggle="dropdown">
+    Select Filter Column
+  </button>
+  <div class="dropdown-menu rounded-0" [ngClass]="{'show':dropdown}">
+    <a class="dropdown-item set-cursor-pointer">None</a>   
+    <a class="dropdown-item set-cursor-pointer" *ngFor="let column of columns">{{column.name}}</a>    
+  </div>
+</div>
+
+<div class="table-responsive">
+  <table class="table table-bordered table-hover">
+    <thead>
+      <tr class="bg-primary text-white">      
+        <th class="header-text" *ngFor="let column of columns">{{column.name}}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let row of rows">
+          <td *ngFor="let column of columns" class="cell-text">{{getValue(row, column.prop)}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,9 +1,8 @@
-
 <div class="row" *ngIf="employees">
   <div class="col mt-4">
     <div class="card-header bg-info text-white rounded-0">
         <fa name="calendar" size="lg"></fa>Employees
     </div>
-    <app-data-table [rows]="employees" [columns]="columns"></app-data-table>
+    <app-data-table [rows]="employees" [columns]="columns" style="width:100%"></app-data-table>
   </div>
 </div>

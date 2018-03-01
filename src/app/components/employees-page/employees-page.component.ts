@@ -11,11 +11,6 @@ import { ActivatedRoute } from '@angular/router';
 export class EmployeesPageComponent implements OnInit {
   employees:IEmployee[];
 
-  rows = [
-    { name: 'Austin', gender: 'Male', company: 'Swimlane' },
-    { name: 'Dany', gender: 'Male', company: 'KFC' },
-    { name: 'Molly', gender: 'Female', company: 'Burger King' },
-  ];
   columns = [
     { prop: 'user.first_name', name: 'First Name' },
     { prop: 'user.last_name', name: 'Last Name' },

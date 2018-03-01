@@ -22,6 +22,8 @@ import { AutenticationInterceptorService } from './services/authentication-inter
 import { YesNoPipe } from './services/yes-no.pipe';
 import { DataTableComponent } from './components/data-table/data-table.component';
 
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,8 +41,7 @@ import { DataTableComponent } from './components/data-table/data-table.component
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    AngularFontAwesomeModule,
-    NgxDatatableModule
+    AngularFontAwesomeModule
   ],
   providers: [
     {

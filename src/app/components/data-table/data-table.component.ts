@@ -7,11 +7,22 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class DataTableComponent implements OnInit {
   @Input() columns:any;
-  @Input() rows:any;
+  @Input() rows:any;  
+  
+  flattenedRows:any = [];  
+  filteredRows:any = [];
+  filters:any = [];
+  dropdown:boolean = false;  
 
   constructor() { }
+  ngOnInit() {    
+    this.columns.map((col)=> {
+              
+    })    
+  }
 
-  ngOnInit() {
+  toggleDropdown() {  
+    this.dropdown = !this.dropdown;    
   }
 
   getValue(o, s) {
