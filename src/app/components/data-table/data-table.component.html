@@ -1,13 +1,21 @@
-<div class="dropdown mt-2 mb-2" [ngClass]="{'show':dropdown}">
-  <button (click)="toggleDropdown()" class="btn dropdown-toggle rounded-0" type="button" id="dropdownMenuButton" data-toggle="dropdown">
-    Select Filter Column
-  </button>
-  <div class="dropdown-menu rounded-0" [ngClass]="{'show':dropdown}">
-    <a class="dropdown-item set-cursor-pointer">None</a>   
-    <a class="dropdown-item set-cursor-pointer" *ngFor="let column of columns">{{column.name}}</a>    
+<button (click)="addFilter()" class="btn btn-success rounded-0 mt-1 mb-1" type="button">Add Filter</button>
+  <div class="row mb-1" *ngFor="let filter of filters;let i = index">  
+    <div class="col">
+    <div class="dropdown d-inline" [ngClass]="{'show':dropdown[i]}">
+      <button (click)="toggleDropdown(i)" class="btn dropdown-toggle rounded-0" type="button" id="dropdownMenuButton" data-toggle="dropdown">        
+        {{filter.name}}
+      </button>
+      <div class="dropdown-menu rounded-0" [ngClass]="{'show':dropdown[i]}">
+        <a class="dropdown-item set-cursor-pointer" (click)="setFilterProp('No Filter', 'No Filter', i)">No Filter</a>   
+        <a class="dropdown-item set-cursor-pointer" (click)="setFilterProp(column.prop, column.name, i)" *ngFor="let column of columns">{{column.name}}</a>    
+      </div>
+    </div>
+    <input [(ngModel)]="filter.value" (input)="filter_()" type="text" class="form-control rounded-0 d-inline" style="width:140px;">
+    <button (click)="removeFilter(i)" class="btn btn-danger rounded-0 d-inline" type="button">Remove Filter</button>        
+    </div>
   </div>
-</div>
-
+  
+    
 <div class="table-responsive">
   <table class="table table-bordered table-hover">
     <thead>
@@ -16,9 +24,10 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let row of rows">
-          <td *ngFor="let column of columns" class="cell-text">{{getValue(row, column.prop)}}</td>
+      <tr *ngFor="let row of filteredRows">
+          <td *ngFor="let column of columns" class="cell-text">{{row[column.prop]}}</td>
       </tr>
     </tbody>
   </table>
 </div>
+  

@@ -12,22 +12,55 @@ export class DataTableComponent implements OnInit {
   flattenedRows:any = [];  
   filteredRows:any = [];
   filters:any = [];
-  dropdown:boolean = false;  
+  dropdown:any = [];  
 
   constructor() { }
+  
   ngOnInit() {    
-    this.columns.map((col)=> {
-              
-    })    
+    this.rows.map((row) => {
+      let new_row = {};
+      this.columns.map((col)=> {
+        new_row[col.prop] = this.getValue(row, col.prop)
+      })
+      this.flattenedRows.push(new_row);
+    })        
+    this.filteredRows = this.flattenedRows.slice(0);
   }
 
-  toggleDropdown() {  
-    this.dropdown = !this.dropdown;    
+  toggleDropdown(i:number) {  
+    this.dropdown[i] = !this.dropdown[i];    
+  }
+
+  addFilter() {
+    this.dropdown.push(false);
+    this.filters.push({prop: 'No Filter', name: 'No Filter', value: ''});    
+  }
+
+  removeFilter(index:number) {
+    this.filters.splice(index,1);
+  }
+
+  setFilterProp(prop:string, name:string, i:number) {
+    this.filters[i].prop = prop;
+    this.filters[i].name = name;
+    this.dropdown[i] = false;
+  }
+
+  filter_() {    
+    let rowsCopy = this.flattenedRows.slice(0);
+    this.filters.map((_filter) => {
+      rowsCopy = rowsCopy.filter((row) => {
+        this.columns.map((col) => {
+          
+        })        
+      })
+    })
+    this.filteredRows = rowsCopy.slice(0);
   }
 
   getValue(o, s) {
-    s = s.replace(/\[(\w+)\]/g, '.$1'); // convert indexes to properties
-    s = s.replace(/^\./, '');           // strip a leading dot
+    s = s.replace(/\[(\w+)\]/g, '.$1');
+    s = s.replace(/^\./, '');
     var a = s.split('.');
     for (var i = 0, n = a.length; i < n; ++i) {
       var k = a[i];
