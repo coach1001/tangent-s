@@ -21,8 +21,7 @@ import { EmployeeService } from './services/employee.service';
 import { AutenticationInterceptorService } from './services/authentication-interceptor.service';
 import { YesNoPipe } from './services/yes-no.pipe';
 import { DataTableComponent } from './components/data-table/data-table.component';
-
-
+import { TableFilterStatesService } from './services/table-filter-states.service';
 
 @NgModule({
   declarations: [
@@ -50,7 +49,8 @@ import { DataTableComponent } from './components/data-table/data-table.component
     },
     AuthenticationService,
     EmployeeService,
-    AuthenticatedGuardService
+    AuthenticatedGuardService,
+    TableFilterStatesService
   ],
   bootstrap: [AppComponent]
 })

@@ -1,8 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
+import { TableFilterStatesService } from '../../services/table-filter-states.service';
 
 @Component({
-  selector: 'app-data-table',
+  selector: 'data-table',
   templateUrl: './data-table.component.html',
   styleUrls: ['./data-table.component.css']
 })
@@ -10,13 +11,14 @@ export class DataTableComponent implements OnInit {
   @Input() columns:any;
   @Input() rows:any;
   @Input() rowAction:any;
+  @Input() name:string;
 
   flattenedRows:any = [];
   filteredRows:any = [];
   filters:any = [];
   dropdown:any = [];
 
-  constructor(private router:Router) { }
+  constructor(private router:Router, private tableFilterStates:TableFilterStatesService) { }
 
   ngOnInit() {
     this.rows.map((row) => {
@@ -33,7 +35,9 @@ export class DataTableComponent implements OnInit {
     this.columns.map((col) => {
       col.sort = false;
       col.sortDirection = true;
-    })       
+    })
+    this.filters = this.tableFilterStates.getTableFilters(this.name);
+    this.filter_();    
   }
 
   toggleDropdown(i:number) {
@@ -52,7 +56,8 @@ export class DataTableComponent implements OnInit {
 
   rowAction_(r) {
     if (typeof this.rowAction === 'undefined') {      
-    } else {        
+    } else {      
+      this.tableFilterStates.setTableFilters(this.name, this.filters.slice(0));        
       this.router.navigate([`${this.rowAction.route}/${r[this.rowAction.paramProp]}`]);
     }
   }
@@ -61,6 +66,7 @@ export class DataTableComponent implements OnInit {
     this.filters[i].prop = prop;
     this.filters[i].name = name;
     this.dropdown[i] = false;
+    this.filter_();
   }
 
   sort_(i:number, changeDirection:boolean) {    
