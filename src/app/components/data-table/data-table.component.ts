@@ -52,14 +52,12 @@ export class DataTableComponent implements OnInit {
     let rowsToKeep = [];
     for(var i=0; i < this.filters.length; i++) {
     //FILTERS
-
       for(var j=0; j < rowsCopy.length; j++) {
         //ROWS
         for(var k=0; k < this.columns.length; k++) {
-        //COLS
+        //COLS          
           if(this.filters[i].prop === 'All') {
-            if(this.filters[i].value === '') {
-              //removeRow = false;
+            if(this.filters[i].value === '') {              
               rowsToKeep.push(rowsCopy[j]);break;
             } else {
               let cellValue = rowsCopy[j][this.columns[k].prop].toLowerCase();
@@ -69,7 +67,16 @@ export class DataTableComponent implements OnInit {
                 break;
               }
             }
-          }
+          } else {
+            if(this.columns[k].prop === this.filters[i].prop) {
+              let cellValue = rowsCopy[j][this.columns[k].prop].toLowerCase();
+              let filterValue = this.filters[i].value.toLowerCase();
+              if( cellValue.indexOf(filterValue) !== -1) {
+                rowsToKeep.push(rowsCopy[j]);
+                break;
+              }              
+            }
+          }          
         //COLS
         }
       //ROWS
