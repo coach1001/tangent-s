@@ -1,48 +1,49 @@
 
-<div class="row" *ngIf="employee">
+
+<div class="row">
   <div class="col col mt-4">
     <div class="card rounded-0">
       <div class="card-header bg-info text-white rounded-0">
           <fa name="info-circle" size="lg"></fa>Employee Details
       </div>
-      <ul class="list-group list-group-flush border-0">
-        <li class="list-group-item border-0">Name: {{employee.user.first_name}} {{employee.user.first_name}}  </li>
-        <li class="list-group-item border-0">Birthday: {{employee.birth_date}}</li>
-        <li class="list-group-item border-0">Phone Number: {{employee.phone_number}}</li>
-        <li class="list-group-item border-0">Staff Member: {{employee.user.is_staff | YesNo}}</li>
-        <li class="list-group-item border-0">Active: {{employee.user.is_active | YesNo}}</li>
-      </ul>
+        <ul class="list-group list-group-flush border-0" *ngIf="employee">
+          <li class="list-group-item border-0">Name: {{employee.user.first_name}} {{employee.user.first_name}}  </li>
+          <li class="list-group-item border-0">Birthday: {{employee.birth_date}}</li>
+          <li class="list-group-item border-0">Phone Number: {{employee.phone_number}}</li>
+          <li class="list-group-item border-0">Staff Member: {{employee.user.is_staff | YesNo}}</li>
+          <li class="list-group-item border-0">Active: {{employee.user.is_active | YesNo}}</li>
+        </ul>
     </div>
   </div>
-  <div class="col mt-4" *ngIf="employee">
+  <div class="col mt-4" >
       <div class="card rounded-0">
         <div class="card-header bg-info text-white rounded-0">
           Position
         </div>
-        <ul class="list-group list-group-flush border-0">
+        <ul class="list-group list-group-flush border-0" *ngIf="employee">
           <li class="list-group-item border-0">Description: {{employee.position.name}}  </li>
           <li class="list-group-item border-0">Level: {{employee.position.level}}</li>
         </ul>
       </div>
     </div>
-  <div class="col mt-4" *ngIf="employeeReviews">
+  <div class="col mt-4" >
     <div class="card rounded-0">
       <div class="card-header bg-info text-white rounded-0">
           <fa name="edit" size="lg"></fa>Reviews
         </div>
-      <div class="card-body">
+      <div class="card-body" *ngIf="employeeReviews">
       </div>
     </div>
   </div>
 </div>
 
-<div class="row" *ngIf="employee">
+<div class="row">
   <div class="col mt-4">
     <div class="card rounded-0">
       <div class="card-header bg-info text-white rounded-0">
           <fa name="calendar" size="lg"></fa>Leave History
       </div>
-      <div class="card-body">
+      <div class="card-body" *ngIf="employee">
       </div>
     </div>
   </div>

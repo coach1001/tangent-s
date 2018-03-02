@@ -12,6 +12,7 @@ export class EmployeesPageComponent implements OnInit {
   employees:IEmployee[];
 
   columns = [
+    { prop: 'user.id', name: 'Id', visible: false},
     { prop: 'user.first_name', name: 'First Name' },
     { prop: 'user.last_name', name: 'Last Name' },
     { prop: 'email', name: 'Email'},
@@ -20,6 +21,11 @@ export class EmployeesPageComponent implements OnInit {
     { prop: 'position.name', name: 'Position'},
     { prop: 'position.level', name: 'Level'}
   ];
+
+  rowAction = {
+    route: 'employees',    
+    paramProp: 'user.id'
+  };
 
   constructor(private employeeService:EmployeeService) { }
 

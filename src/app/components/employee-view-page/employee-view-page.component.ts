@@ -28,14 +28,12 @@ export class EmployeeViewPageComponent implements OnInit {
         })
       }
       if (parseInt(params.id)) {
-        this.employeeService.getAllReviews().subscribe((data:any)=>{
-          console.log(data);
+        this.employeeService.getAllReviews().subscribe((data:any)=>{          
           this.employeeReviews = [];
           this.employeeReviews = data.filter((el) => {
             if(el.employee === params.id) return el;
           })
-        })
-        console.log(this.employeeReviews);
+        })        
       }
     })
   }

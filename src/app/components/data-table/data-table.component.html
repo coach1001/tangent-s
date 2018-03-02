@@ -25,18 +25,21 @@
   <table class="table table-bordered table-hover">
     <thead>
       <tr class="bg-primary text-white">
-          <th class="header-text" *ngFor="let column of columns; let i = index" (click)="sort_(i, true)">
-            
-            {{column.name}}
-            <fa *ngIf="!column.sort" name="sort" class="float-right" size="lg"></fa>
-            <fa *ngIf="column.sort && column.sortDirection" name="sort-asc" class="float-right" size="lg"></fa>
-            <fa *ngIf="column.sort && !column.sortDirection" name="sort-desc" class="float-right" size="lg"></fa>
-          </th>              
+          <ng-container *ngFor="let column of columns; let i = index">
+            <th class="header-text" (click)="sort_(i, true)" *ngIf="column.visible">                          
+              {{column.name}}
+              <fa *ngIf="!column.sort" name="sort" class="float-right" size="lg"></fa>
+              <fa *ngIf="column.sort && column.sortDirection" name="sort-asc" class="float-right" size="lg"></fa>
+              <fa *ngIf="column.sort && !column.sortDirection" name="sort-desc" class="float-right" size="lg"></fa>              
+            </th>              
+          </ng-container>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let row of filteredRows">
-          <td *ngFor="let column of columns" class="cell-text">{{row[column.prop]}}</td>
+      <tr *ngFor="let row of filteredRows">        
+        <ng-container *ngFor="let column of columns">
+          <td class="cell-text" (click)="rowAction_(row)" *ngIf="column.visible">{{row[column.prop]}}</td>                            
+        </ng-container>
       </tr>
     </tbody>
   </table>

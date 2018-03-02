@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-data-table',
@@ -8,19 +9,23 @@ import { Component, OnInit, Input } from '@angular/core';
 export class DataTableComponent implements OnInit {
   @Input() columns:any;
   @Input() rows:any;
+  @Input() rowAction:any;
 
   flattenedRows:any = [];
   filteredRows:any = [];
   filters:any = [];
   dropdown:any = [];
 
-  constructor() { }
+  constructor(private router:Router) { }
 
   ngOnInit() {
     this.rows.map((row) => {
       let new_row = {};
-      this.columns.map((col)=> {
+      this.columns.map((col)=> {        
         new_row[col.prop] = this.getValue(row, col.prop)
+        if (typeof(col.visible) === 'undefined') {
+          col.visible = true;
+        }
       })
       this.flattenedRows.push(new_row);
     })
@@ -28,7 +33,7 @@ export class DataTableComponent implements OnInit {
     this.columns.map((col) => {
       col.sort = false;
       col.sortDirection = true;
-    })    
+    })       
   }
 
   toggleDropdown(i:number) {
@@ -45,15 +50,21 @@ export class DataTableComponent implements OnInit {
     this.filter_();
   }
 
+  rowAction_(r) {
+    if (typeof this.rowAction === 'undefined') {      
+    } else {
+      console.log(this.rowAction);      
+      this.router.navigate([`${this.rowAction.route}/${r[this.rowAction.paramProp]}`]);
+    }
+  }
+
   setFilterProp(prop:string, name:string, i:number) {
     this.filters[i].prop = prop;
     this.filters[i].name = name;
     this.dropdown[i] = false;
   }
 
-  sort_(i:number, changeDirection:boolean) {
-    let sortCol:string = '';
-
+  sort_(i:number, changeDirection:boolean) {    
     this.columns.map((col) => {
       col.sort = false;
     })
@@ -61,8 +72,7 @@ export class DataTableComponent implements OnInit {
     if(changeDirection)
      this.columns[i].sortDirection = !this.columns[i].sortDirection;
     
-    this.filteredRows.sort((a, b) => {
-      //console.log(a[this.columns[i].prop], b[this.columns[i].prop]);
+    this.filteredRows.sort((a, b) => {      
       if(a[this.columns[i].prop] > b[this.columns[i].prop]) {
         return this.columns[i].sortDirection ? -1 : 1;
       } else {
