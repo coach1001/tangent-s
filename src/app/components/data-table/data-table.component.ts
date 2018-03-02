@@ -25,6 +25,10 @@ export class DataTableComponent implements OnInit {
       this.flattenedRows.push(new_row);
     })
     this.filteredRows = this.flattenedRows.slice(0);
+    this.columns.map((col) => {
+      col.sort = false;
+      col.sortDirection = true;
+    })    
   }
 
   toggleDropdown(i:number) {
@@ -47,6 +51,26 @@ export class DataTableComponent implements OnInit {
     this.dropdown[i] = false;
   }
 
+  sort_(i:number, changeDirection:boolean) {
+    let sortCol:string = '';
+
+    this.columns.map((col) => {
+      col.sort = false;
+    })
+    this.columns[i].sort = true;
+    if(changeDirection)
+     this.columns[i].sortDirection = !this.columns[i].sortDirection;
+    
+    this.filteredRows.sort((a, b) => {
+      //console.log(a[this.columns[i].prop], b[this.columns[i].prop]);
+      if(a[this.columns[i].prop] > b[this.columns[i].prop]) {
+        return this.columns[i].sortDirection ? -1 : 1;
+      } else {
+        return this.columns[i].sortDirection ? 1 : -1;
+      }
+    })
+  }
+    
   filter_() {
     let rowsCopy = this.flattenedRows.slice(0);
     let rowsToKeep = [];
@@ -86,6 +110,11 @@ export class DataTableComponent implements OnInit {
     //FILTERS
     }
     this.filteredRows = rowsCopy.slice(0);
+    this.columns.map((col, i) => {
+      if(col.sort) {
+        this.sort_(i, false);
+      }
+    })
   }
 
   getValue(o, s) {

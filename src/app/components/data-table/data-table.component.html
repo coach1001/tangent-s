@@ -21,12 +21,15 @@
   </div>
   </div>
 
-
 <div class="table-responsive">
   <table class="table table-bordered table-hover">
     <thead>
       <tr class="bg-primary text-white">
-        <th class="header-text" *ngFor="let column of columns">{{column.name}}</th>
+          <th class="header-text" *ngFor="let column of columns; let i = index" (click)="sort_(i, true)">
+            {{column.name}}
+            <fa *ngIf="column.sort && column.sortDirection" name="sort-asc" class="float-right" size="lg"></fa>
+            <fa *ngIf="column.sort && !column.sortDirection" name="sort-desc" class="float-right" size="lg"></fa>
+          </th>              
       </tr>
     </thead>
     <tbody>
