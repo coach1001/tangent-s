@@ -52,8 +52,7 @@ export class DataTableComponent implements OnInit {
 
   rowAction_(r) {
     if (typeof this.rowAction === 'undefined') {      
-    } else {
-      console.log(this.rowAction);      
+    } else {        
       this.router.navigate([`${this.rowAction.route}/${r[this.rowAction.paramProp]}`]);
     }
   }
@@ -93,9 +92,9 @@ export class DataTableComponent implements OnInit {
           if(this.filters[i].prop === 'All') {
             if(this.filters[i].value === '') {              
               rowsToKeep.push(rowsCopy[j]);break;
-            } else {
-              let cellValue = rowsCopy[j][this.columns[k].prop].toLowerCase();
-              let filterValue = this.filters[i].value.toLowerCase();
+            } else {              
+              let cellValue = String(rowsCopy[j][this.columns[k].prop]).toLowerCase();
+              let filterValue = String(this.filters[i].value).toLowerCase();
               if( cellValue.indexOf(filterValue) !== -1) {
                 rowsToKeep.push(rowsCopy[j]);
                 break;
@@ -103,8 +102,9 @@ export class DataTableComponent implements OnInit {
             }
           } else {
             if(this.columns[k].prop === this.filters[i].prop) {
-              let cellValue = rowsCopy[j][this.columns[k].prop].toLowerCase();
-              let filterValue = this.filters[i].value.toLowerCase();
+              
+              let cellValue = String(rowsCopy[j][this.columns[k].prop]).toLowerCase();
+              let filterValue = String(this.filters[i].value).toLowerCase();
               if( cellValue.indexOf(filterValue) !== -1) {
                 rowsToKeep.push(rowsCopy[j]);
                 break;
